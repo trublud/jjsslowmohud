@@ -1,9 +1,10 @@
-Resource must stay named jjsslowmohuN
-No dependancies othen then optional ESX or RottonV
+  
+Resource must stay named jjsslowmohud  
+No dependancies othen then optional ESX or RottonV  
 
 
-Commands:
-/jjpowers
+Commands:  
+/jjpowers  
 /jjsettings
 (key bindings in config.lua)
 
