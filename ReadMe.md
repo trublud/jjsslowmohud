@@ -64,7 +64,7 @@ TriggerServerEvent("jjsslowmohud:addme", true/false , PlayerId(), "Text1, "Text2
 
 Example for Notify
 TriggerEvent("jjsslowmohud:notify" ,"TESTNG",3000)
-
+ 
 
 
 Example for Big Hud
