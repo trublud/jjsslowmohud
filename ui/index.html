@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/6b037c9e5a.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link href="style.css" rel="stylesheet">
+    <script src="main.js"></script>
+
+    <title>JJs Player Stuff</title>
+</head>
+<body>
+    <div class="container-main">
+        <div class="active-hud">
+            <div class="title">
+                <span>JJs Hud</span>
+            </div>
+            <div class="officers-hud"></div>
+        </div>
+        <div class="active-officers">
+            <div class="titlep">
+                <span>JJs CoolHud</span>
+            </div>
+            <div class="officers-container"></div>
+        </div>
+
+        <div class="settings-container">
+            <div class="warrper">
+                <div class="settings-container-header">
+                    <span></span>
+                    <i class="material-icons" id="close-del">close</i>
+                </div>
+                <div class="page-1">
+                    
+                    <div class="range-inputes">
+                        <form><br>
+                            <p>Background Opacity</p>
+                            <input class="range-bar" id = "opacity" type="range" value="contrast" max="1.0" min="0.0" step="0.01">
+                            <p>Font Size</p>
+                            <input class="range-bar" id = "increase-size" type="range" value="contrast" max="2.0" min="0.4" step="0.01">
+     
+                        </form>
+                        Now this is open, drag your HUD around too!
+                    </div>
+                   
+                 
+                </div>
+                <div class="restore-btn">Clear!</div>
+                <div class="inputs-id">
+                    <div class="options-btns">
+                        <button data-action="update" class="options-btn">Update</button>
+                        <button  data-action="add" class="options-btn">Add</button >
+                        <button  data-action="remove" class="options-btn">Remove</button >
+                    </div>
+                   <input type="text" id="id" placeholder="PLAYER ID" class="input">
+                    <input type="text" id="code" placeholder="CODE" class="input">
+                    <span id = "err-text" style="color: #e23535; text-shadow: 0px 1px 5px rgba(0,0,0,0.80); display: block;"></span>
+                    <div class="save-btn">Change</div>
+                </div>
+ 
+         
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
