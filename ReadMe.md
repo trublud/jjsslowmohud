@@ -1,4 +1,5 @@
-Resource must stay named jjsslowmohud
+				Resource must stay named jjsslowmohud
+
 No dependancies othen then optional ESX or RottonV
 
 Commands:
@@ -82,4 +83,3 @@ TriggerEvent("jjsslowmohud:hidemehud")
 + Added config.lua comments
 ~ Starting RottonV integration
 ~ Starting new phone, inventory, and garages modules
- 
