@@ -2,6 +2,7 @@
 
 No dependancies othen then optional ESX or RottonV
 
+
 Commands:
 /jjpowers
 /jjsettings
@@ -9,7 +10,7 @@ Commands:
 
 
 Config = {
-  UseESX = false, -- only for Notifications if perferred
+UseESX = false, -- only for Notifications if perferred
   UseshowNotification = true, -- RottonV only for Notifications if perferred
   slowmopower = true,  -- can be triggered by player
   slowmoinvis = true, -- is invisible when slow motion triggered by player
@@ -25,13 +26,12 @@ Config = {
   powercooldown = 5, -- how long between power uses
 }
 Config.Keys = {
-  RequireAiming = false, --removed
+RequireAiming = false, --removed
   SettingsKey = 'k',  -- open hud settings /jjsettings
   NightVision = 'i', -- trigger power /jjpower night
   HeatVision = 'o',  -- trigger power /jjpower heat
   SlowMo = 'u', -- trigger power /jjpower slowmo
-}
-
+  }
 
 
 
@@ -42,44 +42,33 @@ TriggerClientEvent('jjsslowmo:heatvisionPlayer', hvplayerId)
 TriggerClientEvent('jjsslowmo:nightvisionPlayer', nvplayerId)
 TriggerClientEvent('jjsslowmo:superjumpPlayer', jumpingplayerId, true/false)
 
+
 Force time to slow time to slow down:
 TriggerClientEvent('jjsslowmo:updateAllowedHost', -1, sendingplayerId)
 TriggerClientEvent('jjsslowmo:slowmoPlayer', -1, ahost, pspeed, pinvis, stime, sspeed) 
---[[ ahost is the allowed host to slow player 
-    pspeed is true/false if player can run fast while slowed
+--[[ ahost is the allowed host to slow player pspeed is true/false 
+if player can run fast while slowed
     pinivis is true/false if player is invisible when time is slowed
     stime is the time in seconds the slow down lasts
     sspeed is how slow does time slow down to  (1.0 is normal speed)
     ]]
 
 
-TriggerServerEvent('jjsslowmo:setSuperJump', playerId, true/false) 
+TriggerServerEvent('jjsslowmo:setSuperJump', playerId, true/false)
+
 
 Hud Updates ( have to be done per tick ):
 TriggerServerEvent("jjsslowmohud:addme", true/false , PlayerId(), "Text1, "Text2" )
+
 
 
 Example for Notify
 TriggerEvent("jjsslowmohud:notify" ,"TESTNG",3000)
 
 
-Example for Big Hud 
+
+Example for Big Hud
 TriggerEvent("jjsslowmohud:showmehud")
 TriggerServerEvent("jjsslowmohud:addme", false, PlayerId(), "Test1", "test2")
 TriggerEvent("jjsslowmohud:hidemehud")
 
-
-0.0.3
-+ RequireAiming = false   for optional Aim + Key controls for powers
-+ UseESX = false  ( starting optional integration)
-+ powercooldown = 5 to fix network spam kick
-
- 0.0.4
-+ fix restarting plugin with menu open bug
-
-0.0.5
-- Removed "isControlPressed" thread and replaced with user key mappings ( this removed optional Aiming + Key)
-+ Added /jjpowers and /jjsettings
-+ Added config.lua comments
-~ Starting RottonV integration
-~ Starting new phone, inventory, and garages modules
