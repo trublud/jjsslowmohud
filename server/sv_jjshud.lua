@@ -7,8 +7,10 @@ local infect = 1
 local ill = 1
 local visibley = false
 local vall = 0
- ESX = nil
-if Config.UseESX then TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end) end
+if Config.UseESX then
+     ESX = nil 
+      TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end) 
+    end
 --[[
     🛡️
     🧧

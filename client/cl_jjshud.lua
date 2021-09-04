@@ -10,8 +10,26 @@ local Keys = {
 	["LEFT"] = 174, ["RIGHT"] = 175, ["TOP"] = 27, ["DOWN"] = 173,
 	["NENTER"] = 201, ["N4"] = 108, ["N5"] = 60, ["N6"] = 107, ["N+"] = 96, ["N-"] = 97, ["N7"] = 117, ["N8"] = 61, ["N9"] = 118
 }local open = 0
-ESX = nil
+if Config.UseESX then ESX = nil end 
+function GetClosestPlant()
+    local dist = 1000
+    local ped = GetPlayerPed(-1)
+    local pos = GetEntityCoords(ped)
+    local plant = {}
 
+    for i = 1, #Config.Plants do
+        local xd = GetDistanceBetweenCoords(pos.x, pos.y, pos.z,
+                                            Config.Plants[i].x,
+                                            Config.Plants[i].y,
+                                            Config.Plants[i].z, true)
+        if xd < dist then
+            dist = xd
+            plant = Config.Plants[i]
+        end
+    end
+
+    return plant
+end
 function esxnotification(title, subject, msg)
     if Config.UseESX then
         local mugshot, mugshotStr = ESX.Game.GetPedMugshot(PlayerPedId())
@@ -29,7 +47,7 @@ if Config.UseshowNotification then
         if string.find(text, "🧟") then
         else
         if string.find(text, "!") then text = string.gsub(text, "!", "") end
-        while msgm do Citizen.Wait(5) end
+        while msgm do Citizen.Wait(50) end
         Citizen.CreateThread(function()
             msgm = true
             SendNUIMessage({action = "notify", data = text .. '🧟 '})
@@ -42,6 +60,72 @@ if Config.UseshowNotification then
     end
     
     end)
+end
+    if Config.EnableWeed  then 
+    RegisterNetEvent('jjsslowmohud:plantopen')
+    AddEventHandler('jjsslowmohud:plantopen', function(msg, mtime)
+      --  if mtime ==nil or mtime < 1000 then mtime = 4000 end
+       if Config.UseESX and ESX ~= nil then
+           esxnotification('JJsNotify', 'Alert', msg)
+      end
+       if Config.UseshowNotification then
+            msg="🧟 " .. msg
+            TriggerEvent("showNotification","🧟 " .. tostring(msg))
+        end
+        CreateThread(function()
+           
+           
+            SendNUIMessage({action = "plantopen", data = GetClosestPlant()}) 
+              SetNuiFocus(true, true)
+            open = 1
+         --   Citizen.Wait(mtime)
+         --   SendNUIMessage({action = "hidenotify"})
+     --    SendNUIMessage({action = "plantstats", data = msg}) 
+        end)
+    end)
+    RegisterNetEvent('jjsslowmohud:plantstats')
+    AddEventHandler('jjsslowmohud:plantstats', function(msg)
+      --  if mtime ==nil or mtime < 1000 then mtime = 4000 end
+       if Config.UseESX and ESX ~= nil then
+        --   esxnotification('JJsNotify', 'Alert', tostring(msg.type))
+         --  esxnotification('JJsNotify', 'Alert', msg['name'])
+       --    esxnotification('JJsNotify', 'Alert', msg[1])
+      end
+       if Config.UseshowNotification then
+      ---      msg="🧟 " .. msg
+    --        TriggerEvent("showNotification","🧟 " .. tostring(msg))
+        end
+        CreateThread(function()
+           
+         
+        --    SendNUIMessage({action = "plantopen", data = msg}) 
+        --      SetNuiFocus(true, true)
+        --    open = 1
+         --   Citizen.Wait(mtime)
+         --   SendNUIMessage({action = "hidenotify"})
+         SendNUIMessage({action = "plantstats", data = GetClosestPlant()}) 
+       
+    end)
+end)
+end
+function GetClosestPlant()
+    local dist = 1000
+    local ped = GetPlayerPed(-1)
+    local pos = GetEntityCoords(ped)
+    local plant = {}
+
+    for i = 1, #Config.Plants do
+        local xd = GetDistanceBetweenCoords(pos.x, pos.y, pos.z,
+                                            Config.Plants[i].x,
+                                            Config.Plants[i].y,
+                                            Config.Plants[i].z, true)
+        if xd < dist then
+            dist = xd
+            plant = Config.Plants[i]
+        end
+    end
+
+    return plant
 end
 RegisterNetEvent('jjsslowmohud:notify')
 AddEventHandler('jjsslowmohud:notify', function(msg, mtime)
@@ -140,17 +224,20 @@ end
 CreateThread(function()
 
     while true do
-        Wait(0)
+        Wait(80)
 
         if open == 0 then
             if IsControlJustPressed(1, jKeys[Config.Keys.SettingsKey]) then
                 -- esxnotification("JJsNOtify","MoveWindow","Move me around!")
+             
                 TriggerEvent("jjsslowmohud:notify", "Move me around!", 30000)
                 TriggerServerEvent("jjsslowmohud:addme")
                 TriggerEvent("jjsslowmohud:showhud")
                 TriggerEvent("jjsslowmohud:open")
                 open = 1
+                if Config.UseESXlicense then
                 TriggerServerEvent("esx_license:addLicense", GetPlayerServerId(PlayerId()), "Hunter", cb)
+            end
             end
         end
     end

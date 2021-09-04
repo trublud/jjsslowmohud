@@ -18,6 +18,7 @@ client_scripts {
 }
 
 server_scripts {
+    '@mysql-async/lib/MySQL.lua',
     'server/*'
 }
 
@@ -29,7 +30,15 @@ files {
     'ui/index.html',
     'ui/main.js',
     'config.lua',
-    'ui/style.css'
+    'ui/style.css',
+  --  'ui/jQueryAssets/*',
+    'ui/jQueryAssets/jquery.ui-1.10.4.button.min.js',
+   -- 'ui/jQueryAssets/jquery.ui.core.min.css',
+    'ui/jQueryAssets/jquery.ui.theme.min.css',
+    'ui/jQueryAssets/jquery.ui.button.min.css',
+   -- 'ui/jQueryAssets/jquery-1.11.1.min.js',
+    'ui/jQueryAssets/jquery.ui-1.10.4.button.min.js',
+    'ui/jQueryAssets/images/*'
 }
 ---created LiamInChains#3776---
 ---heavilied modified by mindping---

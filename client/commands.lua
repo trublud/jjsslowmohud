@@ -1,4 +1,11 @@
  cooldown = 0
+ if Config.EnableWeed  then 
+ RegisterCommand('jjplant', function()
+ TriggerEvent("jjsslowmohud:plantopen", "plantopening", 3000)
+-- TriggerEvent("jjsslowmohud:plantstats", "plantopeninged", 3000)
+end, false)
+RegisterKeyMapping('jjplant', 'Open CoolHud Settings', 'keyboard', 'n') 
+end
 RegisterCommand('jjsettings', function()
     TriggerEvent("jjsslowmohud:notify", "Move me around!", 30000)
     TriggerServerEvent("jjsslowmohud:addme")
@@ -33,7 +40,7 @@ RegisterCommand('jjpowers', function(source, args)
     end)
 else
     TriggerEvent("jjsslowmohud:notify", "Power still cooling down! "..cooldown .." left", 3000)
- 
+    
 end
 
 end, false)

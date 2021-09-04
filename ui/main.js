@@ -4,8 +4,16 @@ var lastData = {};
 var titlesize = 1.35;
 var officersize = 1.3;
 var currentAction = null;
-
+var potopen = false
 $(document).ready(() => {
+	  $(".Plant-hud").hide();
+	   $(".container-plant").slideUp();
+	 $(document).on("click", function () {
+		 	   $(".Plant-hud").show();
+	   $(".container-plant").slideDown();
+			
+   // DragAble();
+	  });
   $(document).on("input change", "#increase-size", function () {
     lastData.size = $(this).val();
     lastData.title = Math.abs(titlesize * $(this).val());
@@ -69,6 +77,47 @@ window.addEventListener("message", e => {
     }
     $(".warrper").show(500);
     $(".settings-container").slideDown();
+	  
+	  
+	  
+	     } else if (e.data.action == "plantopen") {
+         if (potopen){
+          $(".Plant-hud").hide();
+          $(".container-plant").slideUp();
+           potopen = false
+         }else{
+         }
+           			   $(".Plant-hud").show();
+	   $(".container-plant").slideDown();
+			potopen = true
+      var msg = e.data.data;
+      //$(".statph").text(`test`);
+      $(".statph").text(msg.ph );
+      $(".stattds").text(msg.tds);
+      $(".statwaterage").text(msg.waterage);
+      $(".stattemp").text(msg.temp);
+      $(".stathumidity").text(msg.humidity);
+      $(".statage").text(msg.age);
+      $(".stathealth").text(msg.health);
+      $(".Plant-hud").text(msg.type + ' - ' + msg.growth + ' %');
+
+  //  DragAble();
+			   
+  } else if (e.data.action == "plantstats") {
+   // $(".Plant-hud").show();
+//$(".container-plant").slideDown();
+ //DragAble();	 
+ var msg = e.data.data;
+ //$(".statph").text(`test`);
+ $(".statph").text(msg.ph );
+ $(".stattds").text(msg.tds);
+ $(".statwaterage").text(msg.waterage);
+ $(".stattemp").text(msg.temp);
+ $(".stathumidity").text(msg.humidity);
+ $(".statage").text(msg.age);
+ $(".stathealth").text(msg.health);
+ $(".Plant-hud").text(msg.type + ' - ' + msg.growth + ' %');
+	  
   } else if (e.data.action == "hidehud") {
     $(".active-hud").slideUp();
   // $(".active-hud").slideDown();
@@ -146,6 +195,27 @@ window.addEventListener("message", e => {
             <div class="officer">
             <span class="tag">${officer.name} </span> | Visible 💹 | ❤️ ${officer.life} | ${officer.data1} | ${officer.data3} |  <span class="tag">${officer.data4}</span> 
   </div>`;
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		
+			   
+			   
+			   
+			   
+		   
+		
+		
+		
+		
+		
+		
+		
+		
       } else {
         html = `
             <div class="officer">
@@ -232,10 +302,15 @@ function addbits(s) {
 }
 
 function DragAble() {
-  $(".active-officers").draggable({
+  //$(".active-officers").draggable({
+  //  appendTo: "body",
+  //  containment: "window",
+   // scroll: true,
+ // });
+  $(".container-plant").draggable({
     appendTo: "body",
     containment: "window",
-    scroll: true,
+    scroll: false,
   });
   $(".active-hud").draggable({
     appendTo: "body",
@@ -253,11 +328,15 @@ function SwitchPages() {
 }
 
 $(document).keyup(function (e) {
-  if (e.keyCode == 27) {
+ 
+    if ( e.keyCode == 27) {
+    potopen =false
     currentAction = null;
     $("input").val("");
     $(".warrper").hide();
     $(".settings-container").slideUp();
+	   $(".Plant-hud").hide();
+	   $(".container-plant").slideUp();
     $.post("https://jjsslowmohud/close", JSON.stringify({}));
     closed = false;
     closep = false;
