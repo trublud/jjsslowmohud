@@ -17,7 +17,7 @@ Config = {
   UseESXlicense = true,   
   UseshowNotification = true, -- RottonV only for Notifications if perferred  
   slowmopower = true,  -- can be triggered by player  
-  slowmoinvis = true, -- is invisible when slow motion triggered by player 
+  slowmoinvis = true, -- is invisible when slow motion triggered by player  
   slowmospeed = 0.5, -- half speed = 0.5  
   superjumppower = true, -- can user superjump  
   nightvisionpower = true, -- can be triggered by player  
