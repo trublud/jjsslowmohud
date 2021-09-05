@@ -6,32 +6,68 @@ No dependancies othen then optional ESX or RottonV
 Commands:    
 /jjpowers    
 /jjsettings  
-(key bindings in config.lua)  
+/jjgod true/false
+/jjweed
+/jjplant
+
   
-  
-Config = {  
-UseESX = false, -- only for Notifications if perferred  
-  UseshowNotification = true, -- RottonV only for Notifications if perferred  
-  slowmopower = true,  -- can be triggered by player  
-  slowmoinvis = true, -- is invisible when slow motion triggered by player  
-  slowmospeed = 0.3, -- half speed = 0.5  
-  superjumppower = true, -- can user superjump  
-  nightvisionpower = true, -- can be triggered by player  
-  heatvisionpower = true, -- can be triggered by player  
-  slowmopowertime = 5, -- how long it lasts  
-  nightvisiontime = 5, -- how long it lasts  
-  heatvisiontime = 5, -- how long it lasts  
-  flashspeed = 2.5, -- how fast player runs when in slow motion  
-  AutoShowList = false, -- unused atm  
-  powercooldown = 5, -- how long between power uses  
-}  
-Config.Keys = {  
-RequireAiming = false, --removed  
-  SettingsKey = 'k',  -- open hud settings /jjsettings  
-  NightVision = 'i', -- trigger power /jjpower night  
-  HeatVision = 'o',  -- trigger power /jjpower heat  
-  SlowMo = 'u', -- trigger power /jjpower slowmo  
-  }  
+Config = {
+  EnableWeed = true,
+  UseESX = true, -- EnableWeed requires this
+  UseESXlicense = true, 
+  UseshowNotification = true, -- RottonV only for Notifications if perferred
+  slowmopower = true,  -- can be triggered by player
+  slowmoinvis = true, -- is invisible when slow motion triggered by player
+  slowmospeed = 0.5, -- half speed = 0.5
+  superjumppower = true, -- can user superjump
+  nightvisionpower = true, -- can be triggered by player
+  heatvisionpower = true, -- can be triggered by player
+  slowmopowertime = 8, -- how long it lasts
+  nightvisiontime = 8, -- how long it lasts
+  heatvisiontime = 8, -- how long it lasts
+  flashspeed = 1.5, -- how fast player runs when in slow motion
+  AutoShowList = false, --removing in next release
+  powercooldown = 3, -- how long between power uses
+
+}
+
+--[[
+------  IF YOU CHANGE THESE BELOW THEN YOU MAY NEED TO CLEAN UP YOUR 
+------  %appdata%\CitizenFX\fivem.cfg  file 
+------  or fix the keybind in the ESCAPE/PAUSE menu
+]]
+Config.Keys = {
+  RequireAiming = false, --removing in next release
+  SettingsKey = 'k',  -- open hud settings /jjsettings
+  NightVision = 'i', -- trigger power /jjpower night
+  HeatVision = 'o',  -- trigger power /jjpower heat
+  SlowMo = 'u', -- trigger power /jjpower slowmo
+}
+
+
+-- if enableweed = true this is below
+Config.debug=false
+Config.Plants = {}
+Config.PlantsObj={}
+Config.StartingPH= 6.2
+Config.StartingTDS = 100  -- if too high will cause nuet lockout ph will be 4 and tds 1666 
+Config.StartingTemp = 20
+Config.StartingAir = 20
+Config.StartingLight = 20
+Config.StartingHumidity = 70
+Config.TDSIncrease= {min = 80, max = 180}
+
+
+Config.StartingThirst = 85.0
+Config.StartingHunger = 85.0
+
+Config.HungerIncrease = {min = 8, max = 18}
+Config.ThirstIncrease = {min = 8, max = 18}
+
+Config.Degrade = {min = 1, max = 3}
+Config.QualityDegrade = {min = 1, max = 4}
+Config.GrowthIncrease = 0.25
+Config.GrowthCycletime = 5000
   
   
   
