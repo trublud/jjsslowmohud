@@ -614,7 +614,7 @@ AddEventHandler('jjsslowmohud:weed:client:addFan', function()
 end)
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(12)
+        Citizen.Wait(4)
         local InRange = false
         local ped = GetPlayerPed(-1)
         local pos = GetEntityCoords(ped)
@@ -629,7 +629,7 @@ Citizen.CreateThread(function()
                         DrawText3D(v.x, v.y, v.z,
                                    'Thirst: ' .. v.thirst .. '% - Hunger: ' ..
                                        v.hunger .. '% - Growth: ' .. v.growth ..
-                                       '% -  Quality: ' .. v.quality)
+                                       '% -  Quality: ' .. v.quality.. '%')
                         DrawText3D(v.x, v.y, v.z - 0.18,
                                    'Tend Plant: [ ~b~Q~w~ ]')
                             --[[       DrawText3D(v.x, v.y, v.z - 0.36,

@@ -456,8 +456,8 @@ AddEventHandler('jjsslowmohud:weed:server:waterPlant', function(plantId)
 
     for k, v in pairs(Config.Plants) do
         if v.id == plantId then
-            Config.Plants[k].thirst = Config.Plants[k].thirst + Config.ThirstIncrease
-            Config.Plants[k].tds = Config.Plants[k].tds - (Config.TDSIncrease/5)
+            Config.Plants[k].thirst = Config.Plants[k].thirst +  math.random(Config.ThirstIncrease.min, Config.ThirstIncrease.max)
+            Config.Plants[k].tds = Config.Plants[k].tds - (math.random(Config.TDSIncrease.min, Config.TDSIncrease.max)/5)
             Config.Plants[k].phflux=Config.Plants[k].phflux+0.2
             Config.Plants[k].ph=Config.Plants[k].ph+0.3
             Config.Plants[k].saltbuildup=Config.Plants[k].saltbuildup-1
@@ -511,8 +511,8 @@ AddEventHandler('jjsslowmohud:weed:server:feedPlant', function(plantId)
 
     for k, v in pairs(Config.Plants) do
         if v.id == plantId then
-            Config.Plants[k].hunger = Config.Plants[k].hunger + Config.HungerIncrease
-            Config.Plants[k].tds = Config.Plants[k].tds + Config.TDSIncrease
+            Config.Plants[k].hunger = Config.Plants[k].hunger + math.random(Config.HungerIncrease.min, Config.HungerIncrease.max)
+            Config.Plants[k].tds = Config.Plants[k].tds + math.random(Config.TDSIncrease.min, Config.TDSIncrease.max)
             Config.Plants[k].ph=Config.Plants[k].ph-0.3
             Config.Plants[k].phflux=Config.Plants[k].phflux-0.2
             Config.Plants[k].health=Config.Plants[k].health +30
@@ -600,7 +600,7 @@ Citizen.CreateThread(function()
   if Config.debug then
     Citizen.Wait(500)
   else
-Citizen.Wait(20000)
+Citizen.Wait(Config.GrowthCycletime)
   end      
 
         -- Citizen.Wait(300)
@@ -638,24 +638,27 @@ Citizen.Wait(20000)
                     local waterusage=Config.Plants[i].waterusage or 0
                     waterusage=round((light + temp + air)*plantage/100,1)
                     tdsusage = round((light + temp + air)*plantage/ph/10,1)
-                   saltbuildup= round(waterusage/ tds *waterage,2)
-                       phflux=0.01+(saltbuildup/tdsusage)+(0.01+plantage-waterage)/50
-                   ph=round(ph-(phflux/50),4)
-                   
-                         tds=tds-(phflux/10)
-                         tds=round(tds,2)
-                         if (tds > ((plantage+7*7)*2 )) then
+                    saltbuildup= round(waterusage/ tds *waterage,2)
+                    phflux=0.01+(saltbuildup/tdsusage)+(0.01+plantage-waterage)/50
+                 ph=round(ph-(phflux/25),3)
+                 phflux=round(phflux,3)
+                      tds=tds-(phflux/10)
+                      tds=round(tds,2)
+                         if (tds > ((plantage+7*7)*3 )) then
                              tds = 6666
                              ph = 4.20
                            end
                     --healthflux = (((light/plantage)+(temp/plantage)+(air/plantage)*-3)+(phflux*-3))
-                         healthflux = ((light-plantage)+(temp-plantage)+(air-plantage)+(phflux*-2))
-                         healthflux= round(healthflux*(plantage/100),4)
-        
+                    healthflux = ((light-plantage)+(temp-plantage)+(air-plantage)+(phflux*-2))
+     healthflux= round(healthflux*(plantage/100),4)
+     if healthflux < -3 then healthflux = -3 end
+     if healthflux > 2 then healthflux = 2 end
+     if saltbuildup > 8 then saltbuildup = 8 end
                       -- good for 90 day life   healthflux = (plantage/waterage)-(plantage-light)-(plantage-temp)+(plantage-air)
                 
                       health=round(health+healthflux,1)
 if health < 0 then health =0 end
+if health > 150 then health =150 end
                       Config.Plants[i].waterusage=waterusage
                      Config.Plants[i].tdsusage=tdsusage
                      Config.Plants[i].saltbuildup=saltbuildup
@@ -673,11 +676,11 @@ if health < 0 then health =0 end
                      if Config.debug   then   print("waterusage "..waterusage ) end
                      if Config.debug  then   print("health "..health ) end
              
-                    
-                    Config.Plants[i].thirst = Config.Plants[i].thirst - math.random(Config.Degrade.min, Config.Degrade.max) / 10
-                    Config.Plants[i].hunger = Config.Plants[i].hunger - math.random(Config.Degrade.min, Config.Degrade.max) / 10
-                    Config.Plants[i].growth = Config.Plants[i].growth + (Config.GrowthIncrease *(health/100))
-                    Config.Plants[i].quality = Config.Plants[i].quality *(health/100)
+                 
+                    Config.Plants[i].thirst =  round(Config.Plants[i].thirst - math.random(Config.Degrade.min, Config.Degrade.max) / 8,1)
+                    Config.Plants[i].hunger =  round(Config.Plants[i].hunger - math.random(Config.Degrade.min, Config.Degrade.max) / 5,1)
+                    Config.Plants[i].growth = round(Config.Plants[i].growth + (Config.GrowthIncrease *(health/100)),1)
+                    Config.Plants[i].quality = round(Config.Plants[i].quality *(health/100),1)
                     if Config.Plants[i].growth > 100 then
                         Config.Plants[i].growth = 100
                     end
@@ -693,7 +696,9 @@ if health < 0 then health =0 end
                     if Config.Plants[i].quality < 25 then
                         Config.Plants[i].quality = 25
                     end
-
+                    if Config.Plants[i].quality > 100 then
+                        Config.Plants[i].quality = 100
+                    end
                     if Config.Plants[i].thirst < 75 or Config.Plants[i].hunger < 75 then
                         Config.Plants[i].quality = Config.Plants[i].quality - math.random(Config.QualityDegrade.min, Config.QualityDegrade.max) / 10
                     end

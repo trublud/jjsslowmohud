@@ -135,14 +135,14 @@ window.addEventListener("message", e => {
     document.getElementById('Chgwater-btn').style.visibility = 'hidden';
  } 
  //$(".statph").text(`test`);
- $(".statlight").text(msg.light );
- $(".statair").text(msg.air);
+ $(".statlight").text(msg.light + ' %');
+ $(".statair").text(msg.air + ' %');
  $(".statph").text(msg.ph );
- $(".stattds").text(msg.tds);
- $(".statwaterage").text(msg.waterage);
- $(".stattemp").text(msg.temp);
- $(".stathumidity").text(msg.humidity);
- $(".statage").text(msg.age);
+ $(".stattds").text(msg.tds + ' ppm');
+ $(".statwaterage").text(msg.waterage + ' days');
+ $(".stattemp").text(msg.temp + ' %');
+ $(".stathumidity").text(msg.humidity + ' %');
+ $(".statage").text(msg.age+ ' days');
  $(".stathealth").text(msg.health);
  $(".Plant-hud").text(msg.type + ' - ' + msg.growth + ' %');
 	  
@@ -330,11 +330,11 @@ function addbits(s) {
 }
 
 function DragAble() {
-  //$(".active-officers").draggable({
-  //  appendTo: "body",
-  //  containment: "window",
-   // scroll: true,
- // });
+  $(".active-officers").draggable({
+    appendTo: "body",
+    containment: "window",
+    scroll: true,
+ });
   $(".container-plant").draggable({
     appendTo: "body",
     containment: "window",

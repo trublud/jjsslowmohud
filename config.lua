@@ -37,32 +37,32 @@ Config.debug=false
 Config.Plants = {}
 Config.PlantsObj={}
 Config.StartingPH= 6.2
-Config.StartingTDS = 200
+Config.StartingTDS = 100  -- if too high will cause nuet lockout ph will be 4 and tds 1666 
 Config.StartingTemp = 20
-Config.StartingAir = 2
+Config.StartingAir = 20
 Config.StartingLight = 20
-Config.StartingHumidity = 80
-Config.TDSIncrease= 15.0
+Config.StartingHumidity = 70
+Config.TDSIncrease= {min = 80, max = 180}
 
 
 Config.StartingThirst = 85.0
 Config.StartingHunger = 85.0
 
-Config.HungerIncrease = 15.0
-Config.ThirstIncrease = 12.0
+Config.HungerIncrease = {min = 8, max = 18}
+Config.ThirstIncrease = {min = 8, max = 18}
 
 Config.Degrade = {min = 1, max = 3}
 Config.QualityDegrade = {min = 1, max = 4}
 Config.GrowthIncrease = 0.25
-
+Config.GrowthCycletime = 5000
 Config.YieldRewards = {
-    {type = "granddaddy_purp", rewardMin = 5, rewardMax = 20, item = 'weed_granddaddy', label = 'Grand Daddy Purple 10G'},
-    {type = "peauto", rewardMin = 5, rewardMax = 10, item = 'weed_peauto', label = 'PineApple Express Auto 5G'},
-    {type = "purpun", rewardMin = 5, rewardMax = 20, item = 'weed_purpun', label = 'Purple Punch 5G'},
-    {type = "nlight", rewardMin = 5, rewardMax = 20, item = 'weed_nlight', label = 'Northern Lights 5G'},
-    {type = "cheeseberry", rewardMin = 5, rewardMax = 20, item = 'weed_cheeseberry', label = 'CheeseBerry 5G'},
-    {type = "ambulance", rewardMin = 5, rewardMax =20, item = 'weed_ambulance', label = 'Ambulance 5G'},
-    {type = "amhaze", rewardMin = 5, rewardMax =20, item = 'weed_amhaze', label = 'Amnesai Haze 5G'},
+    {type = "granddaddy_purp", rewardMin = 2, rewardMax = 5, item = 'weed_granddaddy', label = 'Grand Daddy Purple 10G'},
+    {type = "peauto", rewardMin = 2, rewardMax = 5, item = 'weed_peauto', label = 'PineApple Express Auto 5G'},
+    {type = "purpun", rewardMin = 2, rewardMax = 5, item = 'weed_purpun', label = 'Purple Punch 5G'},
+    {type = "nlight", rewardMin = 2, rewardMax = 5, item = 'weed_nlight', label = 'Northern Lights 5G'},
+    {type = "cheeseberry", rewardMin = 2, rewardMax = 6, item = 'weed_cheeseberry', label = 'CheeseBerry 5G'},
+    {type = "ambulance", rewardMin = 2, rewardMax =6, item = 'weed_ambulance', label = 'Ambulance 5G'},
+    {type = "amhaze", rewardMin = 2, rewardMax =6, item = 'weed_amhaze', label = 'Amnesai Haze 5G'},
     
 
     {type = "banana_kush", rewardMin = 5, rewardMax = 6, item = 'weed_bananakush', label = 'Banana Kush 2G'},
