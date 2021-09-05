@@ -6,10 +6,10 @@ No dependancies othen then optional ESX or RottonV
 Commands:    
 /jjpowers    
 /jjsettings  
-/jjgod true/false
-/jjweed
-/jjplant
-
+/jjgod true/false  
+/jjweed  
+/jjplant  
+  
   
 Config = {
   EnableWeed = true,  
