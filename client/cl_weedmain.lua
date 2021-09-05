@@ -372,8 +372,8 @@ end
 
 
 
-RegisterNetEvent('jjsslowmohud:weed:client:useFan')
-AddEventHandler('jjsslowmohud:weed:client:useFan', function()
+RegisterNetEvent('jjsslowmohud:weed:client:addFan')
+AddEventHandler('jjsslowmohud:weed:client:addFan', function()
     local entity = nil
     local plant = GetClosestPlant()
     isDoingAction = true
@@ -392,7 +392,7 @@ AddEventHandler('jjsslowmohud:weed:client:useFan', function()
     TaskPlayAnim(ped, 'amb@prop_human_bum_bin@base', 'base', 8.0, 8.0, -1, 1, 1,
                  0, 0, 0)
     FreezeEntityPosition(ped, false)
-    exports['progressBars']:startUI(2000, "Changing Soil...")
+    exports['progressBars']:startUI(2000, "Adding Fan Speed...")
     Citizen.Wait(2000)
     TriggerServerEvent('jjsslowmohud:weed:server:addfan', plant.id)
     ClearPedTasksImmediately(GetPlayerPed(-1))
@@ -455,7 +455,85 @@ AddEventHandler('jjsslowmohud:weed:client:addHumidity', function()
     ClearPedTasksImmediately(GetPlayerPed(-1))
     isDoingAction = false
 end)
+RegisterNetEvent('jjsslowmohud:weed:client:addphup')
+AddEventHandler('jjsslowmohud:weed:client:addphup', function()
+    local entity = nil
+    local plant = GetClosestPlant()
+    isDoingAction = true
 
+    for k, v in pairs(SpawnedPlants) do
+        if v.id == plant.id then entity = v.obj end
+    end
+
+    TaskTurnPedToFaceEntity(GetPlayerPed(-1), entity, -1)
+
+    RequestAnimDict('amb@prop_human_bum_bin@base')
+    while not HasAnimDictLoaded('amb@prop_human_bum_bin@base') do
+        Citizen.Wait(0)
+    end
+
+    TaskPlayAnim(ped, 'amb@prop_human_bum_bin@base', 'base', 8.0, 8.0, -1, 1, 1,
+                 0, 0, 0)
+    FreezeEntityPosition(ped, false)
+    exports['progressBars']:startUI(2000, "Adding ph up ...")
+    Citizen.Wait(2000)
+    TriggerServerEvent('jjsslowmohud:weed:server:addphup', plant.id)
+    ClearPedTasksImmediately(GetPlayerPed(-1))
+    isDoingAction = false
+end)
+RegisterNetEvent('jjsslowmohud:weed:client:addphdown')
+AddEventHandler('jjsslowmohud:weed:client:addphdown', function()
+    local entity = nil
+    local plant = GetClosestPlant()
+    isDoingAction = true
+
+    for k, v in pairs(SpawnedPlants) do
+        if v.id == plant.id then entity = v.obj end
+    end
+
+    TaskTurnPedToFaceEntity(GetPlayerPed(-1), entity, -1)
+
+    RequestAnimDict('amb@prop_human_bum_bin@base')
+    while not HasAnimDictLoaded('amb@prop_human_bum_bin@base') do
+        Citizen.Wait(0)
+    end
+
+    TaskPlayAnim(ped, 'amb@prop_human_bum_bin@base', 'base', 8.0, 8.0, -1, 1, 1,
+                 0, 0, 0)
+    FreezeEntityPosition(ped, false)
+    exports['progressBars']:startUI(2000, "Adding ph down ...")
+    Citizen.Wait(2000)
+    TriggerServerEvent('jjsslowmohud:weed:server:addphdown', plant.id)
+    ClearPedTasksImmediately(GetPlayerPed(-1))
+    isDoingAction = false
+end)
+
+RegisterNetEvent('jjsslowmohud:weed:client:NewWaterplant')
+AddEventHandler('jjsslowmohud:weed:client:NewWaterplant', function()
+    local entity = nil
+    local plant = GetClosestPlant()
+    isDoingAction = true
+
+    for k, v in pairs(SpawnedPlants) do
+        if v.id == plant.id then entity = v.obj end
+    end
+
+    TaskTurnPedToFaceEntity(GetPlayerPed(-1), entity, -1)
+
+    RequestAnimDict('amb@prop_human_bum_bin@base')
+    while not HasAnimDictLoaded('amb@prop_human_bum_bin@base') do
+        Citizen.Wait(0)
+    end
+
+    TaskPlayAnim(ped, 'amb@prop_human_bum_bin@base', 'base', 8.0, 8.0, -1, 1, 1,
+                 0, 0, 0)
+    FreezeEntityPosition(ped, false)
+    exports['progressBars']:startUI(2000, "Changing Soil ...")
+    Citizen.Wait(2000)
+    TriggerServerEvent('jjsslowmohud:weed:server:changeSoil', plant.id)
+    ClearPedTasksImmediately(GetPlayerPed(-1))
+    isDoingAction = false
+end)
 RegisterNetEvent('jjsslowmohud:weed:client:addTemp')
 AddEventHandler('jjsslowmohud:weed:client:addTemp', function()
     local entity = nil

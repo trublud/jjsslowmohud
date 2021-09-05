@@ -235,6 +235,11 @@ RegisterNUICallback("Feedplant", function(data, cb)
             'jjsslowmohud:server:checkPlayerHasThisItem',
             'temperture_pack', 'jjsslowmohud:weed:client:addTemp',
             true)
+    elseif data.action == "NewWaterplant" then   
+            TriggerServerEvent(
+                'jjsslowmohud:server:checkPlayerHasThisItem',
+                'soil_change', 'jjsslowmohud:weed:client:NewWaterplant',
+                true)
     elseif data.action == "humidity" then   
         TriggerServerEvent(
             'jjsslowmohud:server:checkPlayerHasThisItem',
@@ -244,6 +249,17 @@ RegisterNUICallback("Feedplant", function(data, cb)
         DestroyPlant()
     elseif data.action == "harvest" then    
         HarvestWeedPlant()
+    elseif data.action == "phdown" then    
+        TriggerServerEvent(
+            'jjsslowmohud:server:checkPlayerHasThisItem',
+            'ph_up', 'jjsslowmohud:weed:client:addphdown',
+            true)
+       
+    elseif data.action == "phup" then    
+        TriggerServerEvent(
+            'jjsslowmohud:server:checkPlayerHasThisItem',
+            'ph_down', 'jjsslowmohud:weed:client:addphup',
+            true)
     end
     cb('ok')
 end)

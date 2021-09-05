@@ -82,6 +82,7 @@ window.addEventListener("message", e => {
 	  
 	     } else if (e.data.action == "plantopen") {
          if (potopen){
+         
           $(".Plant-hud").hide();
           $(".container-plant").slideUp();
            potopen = false
@@ -90,8 +91,11 @@ window.addEventListener("message", e => {
         
            			   $(".Plant-hud").show();
 	   $(".container-plant").slideDown();
-			potopen = true
+     if (msg.growth < 100) {
+      document.getElementById('Harvest-btn').style.visibility = 'hidden';
+     } 
    
+			potopen = true
       //$(".statph").text(`test`);
       $(".statph").text(msg.ph );
       $(".stattds").text(msg.tds);
@@ -109,7 +113,30 @@ window.addEventListener("message", e => {
 //$(".container-plant").slideDown();
  //DragAble();	 
  var msg = e.data.data;
+ if (msg.growth < 100) {
+  document.getElementById('Harvest-btn').style.visibility = 'hidden';
+   document.getElementById('Water-btn').style.visibility = 'visible';
+	 document.getElementById('Feed-btn').style.visibility = 'visible';
+     document.getElementById('Lights-btn').style.visibility = 'visible';
+     document.getElementById('phup-btn').style.visibility = 'visible';
+     document.getElementById('phdown-btn').style.visibility = 'visible';
+     document.getElementById('Humidity-btn').style.visibility = 'visible';
+     document.getElementById('Fans-btn').style.visibility = 'visible';
+     document.getElementById('Chgwater-btn').style.visibility = 'visible';
+ }else{
+  document.getElementById('Harvest-btn').style.visibility = 'visible';
+  document.getElementById('Water-btn').style.visibility = 'hidden';
+  document.getElementById('Feed-btn').style.visibility = 'hidden';
+    document.getElementById('Lights-btn').style.visibility = 'hidden';
+    document.getElementById('phup-btn').style.visibility = 'hidden';
+    document.getElementById('phdown-btn').style.visibility = 'hidden';
+    document.getElementById('Humidity-btn').style.visibility = 'hidden';
+    document.getElementById('Fans-btn').style.visibility = 'hidden';
+    document.getElementById('Chgwater-btn').style.visibility = 'hidden';
+ } 
  //$(".statph").text(`test`);
+ $(".statlight").text(msg.light );
+ $(".statair").text(msg.air);
  $(".statph").text(msg.ph );
  $(".stattds").text(msg.tds);
  $(".statwaterage").text(msg.waterage);
@@ -319,13 +346,13 @@ function DragAble() {
     scroll: false,
   });
 }
-function Airplant() {
+function Fansplant() {
   $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'air'}))
 }
 function Waterplant() {
   $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'water'}))
 }
-function Lightplant() {
+function Lightsplant() {
   $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'light'}))
 }
 function Destroyplant() {
@@ -347,6 +374,15 @@ function Humidityplant() {
 }
 function Feedplant() {
   $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'feed'}))
+}
+function phup() {
+  $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'phup'}))
+}
+function phdown() {
+  $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'phdown'}))
+}
+function NewWaterplant() {
+  $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'NewWaterplant'}))
 }
 function SwitchPages() {
   $(".slide-btnRight").on("click", function () {

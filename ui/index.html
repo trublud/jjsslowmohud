@@ -42,18 +42,26 @@ function MM_callJS(jsStr) { //v2.0
       <td>Humidity: <div class="stathumidity"></div></td>
       <td>Health: <div class="stathealth"></div></td>
     </tr>
+    <tr>
+        <td>Lights: <div class="statlight"></div></td>
+        <td>AirFlow: <div class="statair"></div></td>
+      </tr>
   </tbody>
 </table>
 	</div>
 <div id="PlantButtons">
-    <button id="Destroy-btn" onClick=Destroyplant()>Destroy</button>
+    <button id="Destroy-btn" onClick=Destroyplant()>Kill</button>
     <button id="Harvest-btn" onClick=Harvestplant()>Harvest</button>
     <button id="Water-btn" onClick=Waterplant()>Water</button>
 	<button id="Feed-btn" onClick=Feedplant()>Feed</button>
-    <button id="Lights-btn" onClick=Lightsplant()>Lights</button>
+    <button id="Fans-btn" onClick=Fansplant()>Air</button>
+    <button id="Lights-btn" onClick=Lightsplant()>Lamp</button>
     <button id="Humidity-btn" onClick=Humidityplant()>Humidity</button>
-    <button id="Fans-btn" onClick=Fansplant()>Fans</button>
-	<button id="Chgwater-btn" onClick=NewWaterplant()>NewWater</button>
+    <button id="phup-btn" onClick=phup()>PHUp</button>
+    <button id="phdown-btn" onClick=phdown()>PHDown</button>
+	<button id="Chgwater-btn" onClick=NewWaterplant()>Soil</button>
+
+
   </div></small>
 </div>
   	

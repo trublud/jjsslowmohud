@@ -472,7 +472,38 @@ AddEventHandler('jjsslowmohud:weed:server:waterPlant', function(plantId)
     xPlayer.removeInventoryItem('water_bottle', 1)
     TriggerEvent('jjsslowmohud:weed:server:updatePlants')
 end)
+RegisterServerEvent('jjsslowmohud:weed:server:addphup')
+AddEventHandler('jjsslowmohud:weed:server:addphup', function(plantId)
+    local src = source
+    local xPlayer = ESX.GetPlayerFromId(src)
 
+    for k, v in pairs(Config.Plants) do
+        if v.id == plantId then
+            Config.Plants[k].ph= Config.Plants[k].ph+0.4
+          
+            Config.Plants[k].health=Config.Plants[k].health +10
+        end
+    end
+
+    xPlayer.removeInventoryItem('ph_down', 1)
+    TriggerEvent('jjsslowmohud:weed:server:updatePlants')
+end)
+RegisterServerEvent('jjsslowmohud:weed:server:addphdown')
+AddEventHandler('jjsslowmohud:weed:server:addphdown', function(plantId)
+    local src = source
+    local xPlayer = ESX.GetPlayerFromId(src)
+
+    for k, v in pairs(Config.Plants) do
+        if v.id == plantId then
+            Config.Plants[k].ph= Config.Plants[k].ph-6
+          
+            Config.Plants[k].health=Config.Plants[k].health +10
+        end
+    end
+
+    xPlayer.removeInventoryItem('ph_down', 1)
+    TriggerEvent('jjsslowmohud:weed:server:updatePlants')
+end)
 RegisterServerEvent('jjsslowmohud:weed:server:feedPlant')
 AddEventHandler('jjsslowmohud:weed:server:feedPlant', function(plantId)
     local src = source
@@ -645,8 +676,8 @@ if health < 0 then health =0 end
                     
                     Config.Plants[i].thirst = Config.Plants[i].thirst - math.random(Config.Degrade.min, Config.Degrade.max) / 10
                     Config.Plants[i].hunger = Config.Plants[i].hunger - math.random(Config.Degrade.min, Config.Degrade.max) / 10
-                    Config.Plants[i].growth = Config.Plants[i].growth + Config.GrowthIncrease
-
+                    Config.Plants[i].growth = Config.Plants[i].growth + (Config.GrowthIncrease *(health/100))
+                    Config.Plants[i].quality = Config.Plants[i].quality *(health/100)
                     if Config.Plants[i].growth > 100 then
                         Config.Plants[i].growth = 100
                     end
