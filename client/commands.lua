@@ -1,7 +1,8 @@
  cooldown = 0
+ 
  if Config.EnableWeed  then 
  RegisterCommand('jjplant', function()
- TriggerEvent("jjsslowmohud:plantopen", "plantopening", 3000)
+ TriggerEvent("jjsslowmohud:plantopen", "Checking On Closest Plant", 2000)
 -- TriggerEvent("jjsslowmohud:plantstats", "plantopeninged", 3000)
 end, false)
 RegisterKeyMapping('jjplant', 'Open CoolHud Settings', 'keyboard', 'n') 

@@ -321,6 +321,7 @@ function DestroyPlant()
         canHarvest = true
         FreezeEntityPosition(ped, false)
         ClearPedTasksImmediately(ped)
+      
     else
         exports['mythic_notify']:SendAlert('error', 'Error')
     end
@@ -355,6 +356,7 @@ function HarvestWeedPlant()
         canHarvest = true
         FreezeEntityPosition(ped, false)
         ClearPedTasksImmediately(ped)
+     
     else
         exports['mythic_notify']:SendAlert('error', 'Error')
     end
@@ -534,7 +536,7 @@ AddEventHandler('jjsslowmohud:weed:client:addFan', function()
 end)
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Citizen.Wait(12)
         local InRange = false
         local ped = GetPlayerPed(-1)
         local pos = GetEntityCoords(ped)
@@ -543,19 +545,7 @@ Citizen.CreateThread(function()
             if GetDistanceBetweenCoords(pos.x, pos.y, pos.z, v.x, v.y, v.z, true) <
                 1.3 and not isDoingAction and not v.beingHarvested and
                 not IsPedInAnyVehicle(GetPlayerPed(-1), false) then
-                if ESX.PlayerData.job.name == 'police' then
-                    local plant = GetClosestPlant()
-                    DrawText3D(v.x, v.y, v.z,
-                               'Thirst: ' .. v.thirst .. '% - Hunger: ' ..
-                                   v.hunger .. '% - Growth: ' .. v.growth ..
-                                   '% -  Quality: ' .. v.quality)
-                    DrawText3D(v.x, v.y, v.z - 0.18, '~b~G~w~ - Destroy Plant')
-                    if IsControlJustReleased(0, Keys["G"]) then
-                        if v.id == plant.id then
-                            DestroyPlant()
-                        end
-                    end
-                else
+               
                     if v.growth < 100 then
                         local plant = GetClosestPlant()
                         DrawText3D(v.x, v.y, v.z,
@@ -563,8 +553,8 @@ Citizen.CreateThread(function()
                                        v.hunger .. '% - Growth: ' .. v.growth ..
                                        '% -  Quality: ' .. v.quality)
                         DrawText3D(v.x, v.y, v.z - 0.18,
-                                   'Add: [ ~b~G~w~ ]Water - [ ~y~U~w~ ]NewSoil - [ ~y~H~w~ ]Feed')
-                                   DrawText3D(v.x, v.y, v.z - 0.36,
+                                   'Tend Plant: [ ~b~Q~w~ ]')
+                            --[[       DrawText3D(v.x, v.y, v.z - 0.36,
                                    'Adjust:  [ ~b~.~w~ ]Fans - [ ~y~,~w~ ]Lights - [ ~y~[~w~ ]Humidity - [ ~b~]~w~ ]Temp')
                         DrawText3D(v.x, v.y, v.z + 0.18,
                                    'Humidity: ' .. v.humidity ..
@@ -575,6 +565,7 @@ Citizen.CreateThread(function()
                                    'PH: ' .. v.ph .. '  TDS: ' .. v.tds ..
                                        '  Age: ' .. (v.plantage or 1) ..
                                        '     Health: ' .. (v.health or 0))
+                   
                         if IsControlJustReleased(0, Keys["G"]) then
                             if v.id == plant.id then
                                 TriggerServerEvent(
@@ -625,18 +616,21 @@ Citizen.CreateThread(function()
                                     true)
                             end
                         end
+                         ]]
                     else
                         DrawText3D(v.x, v.y, v.z,
-                                   '[Quality: ' .. v.quality .. ']')
-                        DrawText3D(v.x, v.y, v.z - 0.18, '~g~E~w~ - Harvest')
-                        if IsControlJustReleased(0, Keys["E"]) and canHarvest then
-                            local plant = GetClosestPlant()
-                            if v.id == plant.id then
-                                HarvestWeedPlant()
-                            end
-                        end
+                                   '[Can Harvest! - Quality: ' .. v.quality .. ']')
+                                   DrawText3D(v.x, v.y, v.z - 0.18,
+                                   'Tend Plant: [ ~b~Q~w~ ]')
+                      --  DrawText3D(v.x, v.y, v.z - 0.18, '~g~Q~w~ - Harvest')
+                     --   if IsControlJustReleased(0, Keys["E"]) and canHarvest then
+                     --       local plant = GetClosestPlant()
+                       --     if v.id == plant.id then
+                        --        HarvestWeedPlant()
+                        --    end
+                      --  end
                     end
-                end
+                
             end
         end
     end
@@ -646,7 +640,7 @@ local IsSearching = false
 
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Citizen.Wait(12)
         local ped = GetPlayerPed(-1)
         local pos = GetEntityCoords(ped)
         local InRange = false
@@ -684,7 +678,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-function GetClosestPlant()
+function GetClosestPlants()
     local dist = 1000
     local ped = GetPlayerPed(-1)
     local pos = GetEntityCoords(ped)
@@ -718,7 +712,12 @@ end)
 
 RegisterNetEvent('jjsslowmohud:weed:client:notify')
 AddEventHandler('jjsslowmohud:weed:client:notify', function(msg)
-    exports['mythic_notify']:SendAlert('inform', msg)
+ 
+    if Config.UseESX and ESX ~= nil then
+        esxnotification('🌿', ' ', msg, 1000)
+    else
+           exports['mythic_notify']:SendAlert('inform', msg)
+    end
 end)
 
 RegisterNetEvent('jjsslowmohud:weed:client:waterPlant')

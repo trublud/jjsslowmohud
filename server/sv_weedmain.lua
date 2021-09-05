@@ -304,6 +304,7 @@ AddEventHandler('jjsslowmohud:weed:destroyPlant', function(plantId)
     TriggerClientEvent('jjsslowmohud:weed:client:removeWeedObject', -1, plantId)
     TriggerEvent('jjsslowmohud:weed:server:weedPlantRemoved', plantId)
     TriggerEvent('jjsslowmohud:weed:server:updatePlants')
+  
     TriggerClientEvent('jjsslowmohud:weed:client:notify', src, 'You destroy the weed plant')
 end)
 

@@ -12,7 +12,7 @@ local Keys = {
 }local open = 0
 if Config.UseESX then ESX = nil end 
 function GetClosestPlant()
-    local dist = 1000
+    local dist = 2
     local ped = GetPlayerPed(-1)
     local pos = GetEntityCoords(ped)
     local plant = {}
@@ -25,10 +25,11 @@ function GetClosestPlant()
         if xd < dist then
             dist = xd
             plant = Config.Plants[i]
+            return plant
         end
     end
-
-    return plant
+return false
+   
 end
 function esxnotification(title, subject, msg)
     if Config.UseESX then
@@ -64,9 +65,12 @@ end
     if Config.EnableWeed  then 
     RegisterNetEvent('jjsslowmohud:plantopen')
     AddEventHandler('jjsslowmohud:plantopen', function(msg, mtime)
+        local plant = GetClosestPlant()
+       
+        if plant then
       --  if mtime ==nil or mtime < 1000 then mtime = 4000 end
        if Config.UseESX and ESX ~= nil then
-           esxnotification('JJsNotify', 'Alert', msg)
+           esxnotification('🌿', '', msg)
       end
        if Config.UseshowNotification then
             msg="🧟 " .. msg
@@ -75,21 +79,31 @@ end
         CreateThread(function()
            
            
-            SendNUIMessage({action = "plantopen", data = GetClosestPlant()}) 
+            SendNUIMessage({action = "plantopen", data = plant}) 
               SetNuiFocus(true, true)
             open = 1
          --   Citizen.Wait(mtime)
          --   SendNUIMessage({action = "hidenotify"})
      --    SendNUIMessage({action = "plantstats", data = msg}) 
-        end)
+       
+        end) 
+    else
+        if Config.UseESX and ESX ~= nil then
+        esxnotification('🌿', ' ', "There is no plant close by!", 1000)
+    end
+    if Config.UseshowNotification then
+         msg="🧟 " .. msg
+         TriggerEvent("showNotification","🧟 " .. " There is no plant close by!")
+     end
+    end
     end)
     RegisterNetEvent('jjsslowmohud:plantstats')
     AddEventHandler('jjsslowmohud:plantstats', function(msg)
       --  if mtime ==nil or mtime < 1000 then mtime = 4000 end
        if Config.UseESX and ESX ~= nil then
-        --   esxnotification('JJsNotify', 'Alert', tostring(msg.type))
-         --  esxnotification('JJsNotify', 'Alert', msg['name'])
-       --    esxnotification('JJsNotify', 'Alert', msg[1])
+        --   esxnotification('🌿', 'Alert', tostring(msg.type))
+         --  esxnotification('🌿', 'Alert', msg['name'])
+       --    esxnotification('🌿', 'Alert', msg[1])
       end
        if Config.UseshowNotification then
       ---      msg="🧟 " .. msg
@@ -108,30 +122,12 @@ end
     end)
 end)
 end
-function GetClosestPlant()
-    local dist = 1000
-    local ped = GetPlayerPed(-1)
-    local pos = GetEntityCoords(ped)
-    local plant = {}
 
-    for i = 1, #Config.Plants do
-        local xd = GetDistanceBetweenCoords(pos.x, pos.y, pos.z,
-                                            Config.Plants[i].x,
-                                            Config.Plants[i].y,
-                                            Config.Plants[i].z, true)
-        if xd < dist then
-            dist = xd
-            plant = Config.Plants[i]
-        end
-    end
-
-    return plant
-end
 RegisterNetEvent('jjsslowmohud:notify')
 AddEventHandler('jjsslowmohud:notify', function(msg, mtime)
     if mtime ==nil or mtime < 1000 then mtime = 4000 end
     if Config.UseESX and ESX ~= nil then
-        esxnotification('JJsNotify', 'Alert', msg)
+        esxnotification('🌿', '', msg)
     end
     if Config.UseshowNotification then
        -- msg="🧟 " .. msg
@@ -212,7 +208,45 @@ RegisterNUICallback("ToggleOpenUser", function(data, cb)
     end
     cb('ok')
 end)
+RegisterNUICallback("Feedplant", function(data, cb)
+    if data.action == "feed" then
+    TriggerServerEvent(
+        'jjsslowmohud:server:checkPlayerHasThisItem',
+        'fertilizer', 'jjsslowmohud:weed:client:feedPlant',
+        true)
+    elseif data.action == "water" then
+        TriggerServerEvent(
+            'jjsslowmohud:server:checkPlayerHasThisItem',
+            'water_bottle',
+            'jjsslowmohud:weed:client:waterPlant', true)
+    elseif data.action == "light" then
 
+        TriggerServerEvent(
+            'jjsslowmohud:server:checkPlayerHasThisItem',
+            'light_pack', 'jjsslowmohud:weed:client:addLights',
+            true)
+    elseif data.action == "air" then   
+        TriggerServerEvent(
+            'jjsslowmohud:server:checkPlayerHasThisItem',
+            'fan_pack', 'jjsslowmohud:weed:client:addFan',
+            true)
+    elseif data.action == "temp" then   
+        TriggerServerEvent(
+            'jjsslowmohud:server:checkPlayerHasThisItem',
+            'temperture_pack', 'jjsslowmohud:weed:client:addTemp',
+            true)
+    elseif data.action == "humidity" then   
+        TriggerServerEvent(
+            'jjsslowmohud:server:checkPlayerHasThisItem',
+            'humidity_pack', 'jjsslowmohud:weed:client:addHumidity',
+            true)
+    elseif data.action == "destroy" then  
+        DestroyPlant()
+    elseif data.action == "harvest" then    
+        HarvestWeedPlant()
+    end
+    cb('ok')
+end)
 function IsOnline(target)
     print(json.encode(GetActivePlayers()))
     for v, i in ipairs(GetActivePlayers()) do
@@ -224,7 +258,7 @@ end
 CreateThread(function()
 
     while true do
-        Wait(80)
+        Wait(200)
 
         if open == 0 then
             if IsControlJustPressed(1, jKeys[Config.Keys.SettingsKey]) then

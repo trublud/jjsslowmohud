@@ -168,6 +168,11 @@ function SlowMo(p)
         SetPedMoveRateOverride(GetPlayerPed(p), 1.15)
         SetPedDesiredMoveBlendRatio(GetPlayerPed(p), 3.0)
         SetTimeScale(Config.slowmospeed)
+        SetPlayerWantedLevel(p, 0, true)
+        SetEveryoneIgnorePlayer(
+	p --[[ Player ]], 
+	slowmo --[[ boolean ]]
+    )
         if Config.slowmoinvis then
             SetEntityVisible(GetPlayerPed(p), false, false)
         end
@@ -180,7 +185,12 @@ function SlowMo(p)
             SetEntityVisible(GetPlayerPed(p), true, true)
         end
         slowmo = false
-    end
+        SetPlayerWantedLevel(p, 0, true)
+        SetEveryoneIgnorePlayer(
+	p --[[ Player ]], 
+	slowmo --[[ boolean ]]
+    )
+end
 end
 --[[
 Citizen.CreateThread(function()
@@ -211,11 +221,111 @@ Citizen.CreateThread(function()
     end
 end)
 ]]
+local godmode = "false"
+
+RegisterCommand('jj', function()
+   
+    godmode="true"
+    if godmode == "true" then
+        Citizen.CreateThread(function()
+            AddTextEntry("FACES_WARNH2", "God Mode!")
+            AddTextEntry("QM_NO_0", "Cool")
+            AddTextEntry("QM_NO_3", "Enojy JJ")
+            local i = 0
+            while i<40 do
+                Citizen.Wait(0)
+                i=i+0.25
+                DrawFrontendAlert("FACES_WARNH2", "QM_NO_0", 3, 3, "QM_NO_3", 2, -1, false, "FM_NXT_RAC", "QM_NO_1", 0, 10)
+            end
+        end)
+    end
+    Citizen.CreateThread(function() --Godmode
+        while godmode=="true" do
+            Citizen.Wait(20)
+            if godmode=="true" then
+                -- SetEntityInvincible(GetPlayerPed(-1), true)
+                 SetPlayerInvincible(PlayerId(), true)
+                 SetPedCanRagdoll(GetPlayerPed(-1), false)
+                 ClearPedBloodDamage(GetPlayerPed(-1))
+                 ResetPedVisibleDamage(GetPlayerPed(-1))
+                 ClearPedLastWeaponDamage(GetPlayerPed(-1))
+                 SetEntityProofs(GetPlayerPed(-1), true, true, true, true, true, true, true, true)
+             --    SetEntityOnlyDamagedByPlayer(GetPlayerPed(-1), false)
+                 SetEntityCanBeDamaged(GetPlayerPed(-1), false)
+             else
+               --  SetEntityInvincible(GetPlayerPed(-1), false)
+                 SetPlayerInvincible(PlayerId(), false)
+                 SetPedCanRagdoll(GetPlayerPed(-1), true)
+             --    ClearPedLastWeaponDamage(GetPlayerPed(-1))
+                 SetEntityProofs(GetPlayerPed(-1), false, false, false, false, false, false, false, false)
+              --   SetEntityOnlyDamagedByPlayer(GetPlayerPed(-1), true)
+                 SetEntityCanBeDamaged(GetPlayerPed(-1), true)
+             end
+        end
+    end)
+   end, false)
+ RegisterCommand('jjgod', function(source, args)
+   
+    godmode=args[1]
+    if args[1] == "true" then
+        Citizen.CreateThread(function()
+            AddTextEntry("FACES_WARNH2", "God Mode!")
+            AddTextEntry("QM_NO_0", "Cool")
+            AddTextEntry("QM_NO_3", "Enojy JJ")
+            local i = 0
+            while i<35 do
+                Citizen.Wait(0)
+                i=i+0.25
+                DrawFrontendAlert("FACES_WARNH2", "QM_NO_0", 3, 3, "QM_NO_3", 2, -1, false, "FM_NXT_RAC", "QM_NO_1", 0, 10)
+            end
+        end)
+    end
+    Citizen.CreateThread(function() --Godmode
+        while godmode == "true" do
+            Citizen.Wait(20)
+    
+            if godmode =="true" then
+               -- SetEntityInvincible(GetPlayerPed(-1), true)
+                SetPlayerInvincible(PlayerId(), true)
+                SetPedCanRagdoll(GetPlayerPed(-1), false)
+                ClearPedBloodDamage(GetPlayerPed(-1))
+                ResetPedVisibleDamage(GetPlayerPed(-1))
+                ClearPedLastWeaponDamage(GetPlayerPed(-1))
+                SetEntityProofs(GetPlayerPed(-1), true, true, true, true, true, true, true, true)
+            --    SetEntityOnlyDamagedByPlayer(GetPlayerPed(-1), false)
+                SetEntityCanBeDamaged(GetPlayerPed(-1), false)
+            else
+              --  SetEntityInvincible(GetPlayerPed(-1), false)
+                SetPlayerInvincible(PlayerId(), false)
+                SetPedCanRagdoll(GetPlayerPed(-1), true)
+            --    ClearPedLastWeaponDamage(GetPlayerPed(-1))
+                SetEntityProofs(GetPlayerPed(-1), false, false, false, false, false, false, false, false)
+             --   SetEntityOnlyDamagedByPlayer(GetPlayerPed(-1), true)
+                SetEntityCanBeDamaged(GetPlayerPed(-1), true)
+            end
+        end
+    end)
+    
+      --  SetEntityInvincible(GetPlayerPed(-1), false)
+        SetPlayerInvincible(PlayerId(), false)
+        SetPedCanRagdoll(GetPlayerPed(-1), true)
+  --      ClearPedLastWeaponDamage(GetPlayerPed(-1))
+        SetEntityProofs(GetPlayerPed(-1), false, false, false, false, false, false, false, false)
+    --    SetEntityOnlyDamagedByPlayer(GetPlayerPed(-1), true)
+        SetEntityCanBeDamaged(GetPlayerPed(-1), true)
+       
+    TriggerEvent("jjsslowmohud:notify", "GODMODE = " .. tostring(godmode) , 3000)
+   end, false)
+
+
+
+
 function HeatVision()
 
     CreateThread(function()
         local i = 0
         SetSeethrough(true)
+       
         TriggerEvent("jjsslowmohud:showmehud")
         while i < Config.heatvisiontime * 100 do
             Wait(0)
@@ -226,7 +336,7 @@ function HeatVision()
 
         end
         TriggerEvent("jjsslowmohud:hidemehud")
-
+      
         SetSeethrough(false)
     end)
 

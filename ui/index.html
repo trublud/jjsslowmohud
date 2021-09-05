@@ -17,6 +17,11 @@
 <script src="jQueryAssets/jquery-1.11.1.min.js"></script>
 <script src="jQueryAssets/jquery.ui-1.10.4.button.min.js"></script>
 <title>JJs Player Stuff</title>
+<script type="text/javascript">
+function MM_callJS(jsStr) { //v2.0
+  return eval(jsStr)
+}
+</script>
 </head>
 <body>
 
@@ -41,14 +46,14 @@
 </table>
 	</div>
 <div id="PlantButtons">
-    <button id="Destroy-btn">Destroy</button>
-    <button id="Harvest-btn">Harvest</button>
-    <button id="Water-btn">Water</button>
-	<button id="Feed-btn">Feed</button>
-    <button id="Lights-btn">Lights</button>
-    <button id="Humidity-btn">Humidity</button>
-    <button id="Fans-btn">Fans</button>
-	<button id="Chgwater-btn">NewWater</button>
+    <button id="Destroy-btn" onClick=Destroyplant()>Destroy</button>
+    <button id="Harvest-btn" onClick=Harvestplant()>Harvest</button>
+    <button id="Water-btn" onClick=Waterplant()>Water</button>
+	<button id="Feed-btn" onClick=Feedplant()>Feed</button>
+    <button id="Lights-btn" onClick=Lightsplant()>Lights</button>
+    <button id="Humidity-btn" onClick=Humidityplant()>Humidity</button>
+    <button id="Fans-btn" onClick=Fansplant()>Fans</button>
+	<button id="Chgwater-btn" onClick=NewWaterplant()>NewWater</button>
   </div></small>
 </div>
   	

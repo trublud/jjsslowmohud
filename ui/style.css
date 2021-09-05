@@ -130,7 +130,7 @@ body{
     font-family: 'Lato', monospace;
     position: absolute;
     width: 750px;
-    height: 200px;
+    height: 300px;
     top: 20%;
     left: 50%; 
     transform: translate(-50%,-50%);

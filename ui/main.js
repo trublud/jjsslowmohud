@@ -8,12 +8,12 @@ var potopen = false
 $(document).ready(() => {
 	  $(".Plant-hud").hide();
 	   $(".container-plant").slideUp();
-	 $(document).on("click", function () {
-		 	   $(".Plant-hud").show();
-	   $(".container-plant").slideDown();
+	// $(document).on("click", function () {
+		 //	   $(".Plant-hud").show();
+	 //  $(".container-plant").slideDown();
 			
    // DragAble();
-	  });
+	//  });
   $(document).on("input change", "#increase-size", function () {
     lastData.size = $(this).val();
     lastData.title = Math.abs(titlesize * $(this).val());
@@ -86,11 +86,12 @@ window.addEventListener("message", e => {
           $(".container-plant").slideUp();
            potopen = false
          }else{
-         }
+           var msg = e.data.data;
+        
            			   $(".Plant-hud").show();
 	   $(".container-plant").slideDown();
 			potopen = true
-      var msg = e.data.data;
+   
       //$(".statph").text(`test`);
       $(".statph").text(msg.ph );
       $(".stattds").text(msg.tds);
@@ -100,9 +101,9 @@ window.addEventListener("message", e => {
       $(".statage").text(msg.age);
       $(".stathealth").text(msg.health);
       $(".Plant-hud").text(msg.type + ' - ' + msg.growth + ' %');
-
-  //  DragAble();
-			   
+       
+    DragAble();
+			        }
   } else if (e.data.action == "plantstats") {
    // $(".Plant-hud").show();
 //$(".container-plant").slideDown();
@@ -318,7 +319,35 @@ function DragAble() {
     scroll: false,
   });
 }
-
+function Airplant() {
+  $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'air'}))
+}
+function Waterplant() {
+  $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'water'}))
+}
+function Lightplant() {
+  $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'light'}))
+}
+function Destroyplant() {
+  $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'destroy'}))
+  $(".Plant-hud").hide();
+  $(".container-plant").slideUp();
+   potopen = false
+   $.post("https://jjsslowmohud/close", JSON.stringify({}));
+}
+function Harvestplant() {
+  $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'harvest'}))
+  $(".Plant-hud").hide();
+  $(".container-plant").slideUp();
+   potopen = false
+   $.post("https://jjsslowmohud/close", JSON.stringify({}));
+}
+function Humidityplant() {
+  $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'humidity'}))
+}
+function Feedplant() {
+  $.post('https://jjsslowmohud/Feedplant',JSON.stringify({action : 'feed'}))
+}
 function SwitchPages() {
   $(".slide-btnRight").on("click", function () {
     $(".page-1").fadeIn(200);
