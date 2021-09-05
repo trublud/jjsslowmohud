@@ -45,7 +45,7 @@ Config.Keys = {
 }
 
 
--- if enableweed = true this is below  
+-- if enableweed = true this is enabled below  
 Config.debug=false  
 Config.Plants = {}  
 Config.PlantsObj={}  
