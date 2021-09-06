@@ -1,7 +1,12 @@
     
 Resource must stay named jjsslowmohud    
-No dependancies othen then optional ESX or RottonV    
+No dependancies othen then optional ESX or RottonV   
+![powermenu](https://user-images.githubusercontent.com/5308859/132145165-44ed2ac2-d5f8-4eb1-b788-384da43ba38a.png)
+
+  ![planted](https://user-images.githubusercontent.com/5308859/132145171-96325eec-b52e-46b4-a819-0ba94e257f1c.png)
   
+![tending](https://user-images.githubusercontent.com/5308859/132145173-169025e1-5b70-4991-b498-d2229f7d2a81.png)
+
   
 Commands:    
 /jjpowers    
@@ -11,8 +16,8 @@ Commands:
 /jjplant  
   
   
-Config = {
-  EnableWeed = true,  
+Config = {  
+  EnableWeed = true,   
   UseESX = true, -- EnableWeed requires this  
   UseESXlicense = true,   
   UseshowNotification = true, -- RottonV only for Notifications if perferred  
@@ -42,6 +47,7 @@ Config.Keys = {
   NightVision = 'i', -- trigger power /jjpower night  
   HeatVision = 'o',  -- trigger power /jjpower heat  
   SlowMo = 'u', -- trigger power /jjpower slowmo  
+  TendPlants = 'j',
 }
 
 
