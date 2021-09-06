@@ -1,6 +1,7 @@
     
-Resource must stay named jjsslowmohud    
-No dependancies othen then optional ESX or RottonV   
+Resource must stay named jjsslowmohud   due to nui 
+No dependancies unless Weed is used then full ESX with inventory is needed
+
 ![powermenu](https://user-images.githubusercontent.com/5308859/132145165-44ed2ac2-d5f8-4eb1-b788-384da43ba38a.png)
 
   ![planted](https://user-images.githubusercontent.com/5308859/132145171-96325eec-b52e-46b4-a819-0ba94e257f1c.png)
