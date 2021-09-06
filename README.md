@@ -112,5 +112,10 @@ TriggerEvent("jjsslowmohud:notify" ,"TESTNG",3000)
 Example for Big Hud  
 TriggerEvent("jjsslowmohud:showmehud")  
 TriggerServerEvent("jjsslowmohud:addme", false, PlayerId(), "Test1", "test2")  
-TriggerEvent("jjsslowmohud:hidemehud")  
+TriggerEvent("jjsslowmohud:hidemehud")   
+    
+Menu:        ---created LiamInChains#3776---  
+orp-weed:    ---created Howdy#8276  
+  
+Both:        ---heavilied modified by mindping---  
   
