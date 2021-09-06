@@ -10,7 +10,7 @@ Super powers, slow mo, heat vision, superjump, night vision
   
 ![tending](https://user-images.githubusercontent.com/5308859/132145173-169025e1-5b70-4991-b498-d2229f7d2a81.png)
 https://www.youtube.com/watch?v=h3p26xosrk8  
-![tending](https://www.youtube.com/watch?v=4UQuF7gBhyo  )
+https://www.youtube.com/watch?v=4UQuF7gBhyo  
   
 Commands:    
 /jjpowers    
