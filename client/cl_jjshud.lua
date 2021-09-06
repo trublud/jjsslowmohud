@@ -9,28 +9,11 @@ local Keys = {
 	["HOME"] = 213, ["PAGEUP"] = 10, ["PAGEDOWN"] = 11, ["DELETE"] = 178,
 	["LEFT"] = 174, ["RIGHT"] = 175, ["TOP"] = 27, ["DOWN"] = 173,
 	["NENTER"] = 201, ["N4"] = 108, ["N5"] = 60, ["N6"] = 107, ["N+"] = 96, ["N-"] = 97, ["N7"] = 117, ["N8"] = 61, ["N9"] = 118
-}local open = 0
+}
+local isDoingAction = false
+local open = 0
 if Config.UseESX then ESX = nil end 
-function GetClosestPlant()
-    local dist = 2
-    local ped = GetPlayerPed(-1)
-    local pos = GetEntityCoords(ped)
-    local plant = {}
 
-    for i = 1, #Config.Plants do
-        local xd = GetDistanceBetweenCoords(pos.x, pos.y, pos.z,
-                                            Config.Plants[i].x,
-                                            Config.Plants[i].y,
-                                            Config.Plants[i].z, true)
-        if xd < dist then
-            dist = xd
-            plant = Config.Plants[i]
-            return plant
-        end
-    end
-return false
-   
-end
 function esxnotification(title, subject, msg)
     if Config.UseESX then
         local mugshot, mugshotStr = ESX.Game.GetPedMugshot(PlayerPedId())
@@ -65,9 +48,49 @@ end
     if Config.EnableWeed  then 
     RegisterNetEvent('jjsslowmohud:plantopen')
     AddEventHandler('jjsslowmohud:plantopen', function(msg, mtime)
+        local entity = nil
         local plant = GetClosestPlant()
+        local ped = GetPlayerPed(-1)
        
-        if plant then
+       
+        if not (plant=="false") and not isDoingAction then
+            isDoingAction = true
+    
+            for k, v in pairs(SpawnedPlants) do
+                if v.id == plant.id then 
+                    entity = v.obj
+                    
+            TaskTurnPedToFaceEntity(ped, entity, -1)
+            TaskGoStraightToCoordRelativeToEntity(
+                ped --[[ Ped ]], 
+                entity --[[ number ]], 
+                0.4 --[[ number ]], 
+                0.4 --[[ number ]], 
+                0.4 --[[ integer ]], 
+                0.4 --[[ number ]], 
+                0.4 --[[ number ]]
+            )
+            Citizen.Wait(2000)
+            TaskTurnPedToFaceEntity(ped, entity, -1)
+            Citizen.Wait(1300)
+                  
+                    RequestAnimDict('amb@prop_human_bum_bin@base')
+                    while not HasAnimDictLoaded('amb@prop_human_bum_bin@base') do
+                        Citizen.Wait(0)
+                    end
+            
+                    TaskPlayAnim(ped, 'amb@prop_human_bum_bin@base', 'base', 8.0, 8.0, -1,
+                                 1, 1, 0, 0, 0)
+                    FreezeEntityPosition(ped, true)
+                    exports['progressBars']:startUI(1000, "Tending...")
+                    Citizen.Wait(1000)
+                    FreezeEntityPosition(ped, false)
+                    ClearPedTasksImmediately(ped)
+                end
+            end
+        
+          
+
       --  if mtime ==nil or mtime < 1000 then mtime = 4000 end
        if Config.UseESX and ESX ~= nil then
            esxnotification('🌿', '', msg)
@@ -80,6 +103,7 @@ end
            
            
             SendNUIMessage({action = "plantopen", data = plant}) 
+            SendNUIMessage({action = "plantstats", data = GetClosestPlant()}) 
               SetNuiFocus(true, true)
             open = 1
          --   Citizen.Wait(mtime)
@@ -147,28 +171,44 @@ AddEventHandler('jjsslowmohud:updateme', function(data)
 end)
 RegisterNetEvent('jjsslowmohud:showhud')
 AddEventHandler('jjsslowmohud:showhud', function(hudx)
+    if  not isDoingAction then 
+        isDoingAction = true
     SendNUIMessage({action = "showhud", hudx = hudx})
+    end
 end)
 RegisterNetEvent('jjsslowmohud:showmehud')
 AddEventHandler('jjsslowmohud:showmehud', function(hudx)
-    SendNUIMessage({action = "showmehud", hudx = hudx})
+   
+    if  not isDoingAction then 
+        isDoingAction = true
+        SendNUIMessage({action = "showmehud", hudx = hudx})
+    end
 end)
-
 RegisterNetEvent('jjsslowmohud:update')
 AddEventHandler('jjsslowmohud:update', function(data)
     SendNUIMessage({action = "update", data = data})
 end)
 RegisterNetEvent('jjsslowmohud:hidemehud')
 AddEventHandler('jjsslowmohud:hidemehud',
-                function() SendNUIMessage({action = "hidemehud"}) end)
+                function() 
+                    SendNUIMessage({action = "hidemehud"})
+                    isDoingAction = false
+                end)
 RegisterNetEvent('jjsslowmohud:closehud')
 AddEventHandler('jjsslowmohud:closehud',
-                function() SendNUIMessage({action = "hidehud"}) end)
+                function() 
+                    SendNUIMessage({action = "hidehud"}) 
+                      isDoingAction = false
+                end)
 RegisterNetEvent('jjsslowmohud:open')
 AddEventHandler('jjsslowmohud:open', function()
+    
+    if  not isDoingAction then 
+        isDoingAction = true
     SendNUIMessage({action = "open"})
     SetNuiFocus(true, true)
     open = 1
+    end
 end)
 
 RegisterNetEvent('jjsslowmohud:sendError')
@@ -181,6 +221,9 @@ RegisterNUICallback("close", function(data, cb)
     SendNUIMessage({action = "hidenotify"})
     SendNUIMessage({action = "hidehud"})
     open = 0
+    
+    
+        isDoingAction = false
     cb('ok')
 
 end)

@@ -29,11 +29,14 @@ Config.Keys = {
   NightVision = 'i', -- trigger power /jjpower night
   HeatVision = 'o',  -- trigger power /jjpower heat
   SlowMo = 'u', -- trigger power /jjpower slowmo
+  TendPlant = 'j', -- tend closest plant!
+  FindSeed = 'h', -- search for seeds
 }
 
 
 -- if enableweed = true this is below
 Config.debug=false
+Config.GetClosestPlantDist = 40000
 Config.Plants = {}
 Config.PlantsObj={}
 Config.StartingPH= 6.2
@@ -54,7 +57,7 @@ Config.ThirstIncrease = {min = 8, max = 18}
 Config.Degrade = {min = 1, max = 3}
 Config.QualityDegrade = {min = 1, max = 4}
 Config.GrowthIncrease = 0.25
-Config.GrowthCycletime = 5000
+Config.GrowthCycletime = 10000
 Config.YieldRewards = {
     {type = "granddaddy_purp", rewardMin = 2, rewardMax = 5, item = 'weed_granddaddy', label = 'Grand Daddy Purple 10G'},
     {type = "peauto", rewardMin = 2, rewardMax = 5, item = 'weed_peauto', label = 'PineApple Express Auto 5G'},

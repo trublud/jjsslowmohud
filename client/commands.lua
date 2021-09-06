@@ -5,7 +5,7 @@
  TriggerEvent("jjsslowmohud:plantopen", "Checking On Closest Plant", 2000)
 -- TriggerEvent("jjsslowmohud:plantstats", "plantopeninged", 3000)
 end, false)
-RegisterKeyMapping('jjplant', 'Open CoolHud Settings', 'keyboard', 'n') 
+
 end
 RegisterCommand('jjsettings', function()
     TriggerEvent("jjsslowmohud:notify", "Move me around!", 30000)
@@ -16,7 +16,7 @@ end, false)
 TriggerEvent('chat:addSuggestion', '/jjsettings', 'CoolHud Settings Menu',
              { --[[   { name="paramName1", help="param description 1" },    { name="paramName2", help="param description 2" }]] })
 
-RegisterKeyMapping('jjsettings', 'Open CoolHud Settings', 'keyboard', 'k')
+
 
 RegisterCommand('jjpowers', function(source, args)
   
@@ -50,11 +50,13 @@ TriggerEvent('chat:addSuggestion', '/jjpowers', 'JJs Powers', {
     {name = "night", help = "night vision"},
     {name = "slowmo", help = "slow motion"}
 })
-
-RegisterKeyMapping('jjsettings', 'Open CoolHud Settings', 'keyboard', Config.Keys.SettingsKey)
-RegisterKeyMapping('jjpowers heat', 'Heat Vision', 'keyboard', Config.Keys.HeatVision)
-RegisterKeyMapping('jjpowers night', 'Night Vision', 'keyboard', Config.Keys.NightVision)
-RegisterKeyMapping('jjpowers slowmo', 'Slow Motion', 'keyboard', Config.Keys.SlowMo)
+--RegisterKeyMapping('jjplant', 'Open CoolHud Settings', 'keyboard', 'n') 
+--RegisterKeyMapping('jjsettings', 'Open CoolHud Settings', 'keyboard', 'k')
+RegisterKeyMapping('jjplant', 'JJ Plant Tender', 'keyboard', Config.Keys.TendPlant)
+RegisterKeyMapping('jjsettings', 'JJ CoolHud Settings', 'keyboard', Config.Keys.SettingsKey)
+RegisterKeyMapping('jjpowers heat', 'JJ Heat Vision', 'keyboard', Config.Keys.HeatVision)
+RegisterKeyMapping('jjpowers night', 'JJ Night Vision', 'keyboard', Config.Keys.NightVision)
+RegisterKeyMapping('jjpowers slowmo', 'JJ Slow Motion', 'keyboard', Config.Keys.SlowMo)
 
 --[[RegisterKeyMapping('say hi', 'Say hi', 'keyboard', 'o') 
 RegisterCommand('+handsup', function()

@@ -104,7 +104,7 @@ window.addEventListener("message", e => {
       $(".stathumidity").text(msg.humidity);
       $(".statage").text(msg.age);
       $(".stathealth").text(msg.health);
-      $(".Plant-hud").text(msg.type + ' - ' + msg.growth + ' %');
+      $(".Plant-hud").text(msg.label + ' - ' + msg.growth + ' %');
        
     DragAble();
 			        }
@@ -144,7 +144,7 @@ window.addEventListener("message", e => {
  $(".stathumidity").text(msg.humidity + ' %');
  $(".statage").text(msg.age+ ' days');
  $(".stathealth").text(msg.health);
- $(".Plant-hud").text(msg.type + ' - ' + msg.growth + ' %');
+ $(".Plant-hud").text(msg.label + ' - ' + msg.growth + ' %');
 	  
   } else if (e.data.action == "hidehud") {
     $(".active-hud").slideUp();
